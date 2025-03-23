@@ -36,9 +36,17 @@ export default function FilterPanel({
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
     const isMin = event.target.name === 'min';
-    const newRange = isMin ? [value, priceRange[1]] : [priceRange[0], value];
-    setPriceRange(newRange);
-    onPriceChange(newRange[0], newRange[1]);
+    
+    // Ensure min doesn't exceed max and max doesn't go below min
+    if (isMin) {
+      const newMin = Math.min(value, priceRange[1]);
+      setPriceRange([newMin, priceRange[1]]);
+      onPriceChange(newMin, priceRange[1]);
+    } else {
+      const newMax = Math.max(value, priceRange[0]);
+      setPriceRange([priceRange[0], newMax]);
+      onPriceChange(priceRange[0], newMax);
+    }
   };
 
   return (
@@ -62,18 +70,55 @@ export default function FilterPanel({
       <div>
         <h3 className="text-lg font-semibold mb-3">Price Range</h3>
         <div className="space-y-4">
-          <input
-            type="range"
-            name="min"
-            min="0"
-            max="100"
-            value={priceRange[0]}
-            onChange={handlePriceChange}
-            className="w-full accent-[#468847]"
-          />
-          <div className="flex justify-between text-sm text-gray-600">
-            <span>GH₵{priceRange[0]}</span>
-            <span>GH₵{priceRange[1]}</span>
+          <div className="relative">
+            <div className="h-2 bg-gray-200 rounded-full">
+              <div
+                className="absolute h-2 bg-[#468847] rounded-full"
+                style={{
+                  left: `${(priceRange[0] / 100) * 100}%`,
+                  right: `${100 - (priceRange[1] / 100) * 100}%`
+                }}
+              />
+            </div>
+            <input
+              type="range"
+              name="min"
+              min="0"
+              max="100"
+              value={priceRange[0]}
+              onChange={handlePriceChange}
+              className="absolute w-full h-2 -top-0 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#468847] [&::-webkit-slider-thumb]:cursor-pointer"
+            />
+            <input
+              type="range"
+              name="max"
+              min="0"
+              max="100"
+              value={priceRange[1]}
+              onChange={handlePriceChange}
+              className="absolute w-full h-2 -top-0 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#468847] [&::-webkit-slider-thumb]:cursor-pointer"
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="relative">
+              <span className="absolute text-xs text-gray-500 -top-4">Min</span>
+              <input
+                type="number"
+                value={priceRange[0]}
+                onChange={(e) => handlePriceChange({ target: { name: 'min', value: e.target.value } } as any)}
+                className="w-20 p-1 text-sm border rounded-md"
+              />
+            </div>
+            <span className="text-gray-400">-</span>
+            <div className="relative">
+              <span className="absolute text-xs text-gray-500 -top-4">Max</span>
+              <input
+                type="number"
+                value={priceRange[1]}
+                onChange={(e) => handlePriceChange({ target: { name: 'max', value: e.target.value } } as any)}
+                className="w-20 p-1 text-sm border rounded-md"
+              />
+            </div>
           </div>
         </div>
       </div>

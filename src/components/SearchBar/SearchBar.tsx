@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import { products } from '../../data/products';
 
@@ -10,8 +10,12 @@ interface SearchBarProps {
 
 export default function SearchBar({ onSearch }: SearchBarProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearching, setIsSearching] = useState(false);
+
+  const isServicesPage = location.pathname === '/services';
+  const placeholder = isServicesPage ? "Search for services..." : "Search for products...";
 
   const debouncedSearch = useCallback(
     debounce((term: string) => {
@@ -31,10 +35,16 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     e.preventDefault();
     setIsSearching(true);
     if (searchTerm.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
-      const results = products.filter(product => 
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      const searchPath = isServicesPage ? '/services/search' : '/search';
+      navigate(`${searchPath}?q=${encodeURIComponent(searchTerm.trim())}`);
+      
+      // You can add service search logic here when the services data is available
+      if (!isServicesPage) {
+        const results = products.filter(product => 
+          product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+      
       onSearch(searchTerm);
       setIsSearching(false);
     }
@@ -66,7 +76,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
         type="text"
         value={searchTerm}
         onChange={handleInputChange}
-        placeholder="Search for products..."
+        placeholder={placeholder}
         className="flex-1 p-2 text-sm bg-transparent focus:outline-none placeholder-gray-400"
       />
       

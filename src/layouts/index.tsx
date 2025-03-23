@@ -304,12 +304,35 @@ export default function Layout() {
                 </div>
                 
             </div>
-            <div className="flex m-2 justify-between px-12">
-            <div className="flex m-2 justify-between px-12">
-              <PopoverGroup className="flex gap-x-12">
-                <CategoryNav />
-              </PopoverGroup>
-            </div>
+            <div className="border-b border-gray-200">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <PopoverGroup className="flex items-center h-16">
+                  <NavLink 
+                    to="/" 
+                    className={({ isActive }) => 
+                      `px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                        isActive 
+                          ? 'text-[#468847] border-b-2 border-[#468847]' 
+                          : 'text-gray-700 hover:text-[#468847] hover:border-b-2 hover:border-[#468847]'
+                      }`
+                    }
+                  >
+                    Products
+                  </NavLink>
+                  <NavLink 
+                    to="/services" 
+                    className={({ isActive }) => 
+                      `px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                        isActive 
+                          ? 'text-[#468847] border-b-2 border-[#468847]' 
+                          : 'text-gray-700 hover:text-[#468847] hover:border-b-2 hover:border-[#468847]'
+                      }`
+                    }
+                  >
+                    Services
+                  </NavLink>
+                </PopoverGroup>
+              </div>
             </div>
                 
                
