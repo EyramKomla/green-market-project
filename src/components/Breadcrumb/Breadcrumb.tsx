@@ -9,6 +9,9 @@ export default function Breadcrumb() {
   if (location.pathname === '/') {
     return null;
   }
+  if (location.pathname === '/checkout') {
+    return null;
+  }
 
   const getBreadcrumbName = (path: string) => {
     switch (path) {

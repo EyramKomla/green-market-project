@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
-import type { CartItem } from '../../types/Product';
+import type { CartItem } from '../../types/';
 
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+
+import { v4 as uuidv4 } from 'uuid';
+import { useAuth } from '../../context/AuthContext';
 
 interface BillingInfo {
   firstName: string;
@@ -21,7 +24,7 @@ interface BillingInfo {
 }
 
 export default function Checkout() {
-  const { cartItems: cart, total } = useCart();
+  const { cartItems: cart, total, clearCart } = useCart();
   const [billingInfo, setBillingInfo] = useState<BillingInfo>({
     firstName: '',
     lastName: '',
@@ -41,8 +44,35 @@ export default function Checkout() {
   const [accountName, setAccountName] = useState('');
   const navigate = useNavigate();
 
+  const { user } = useAuth();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Generate unique order ID
+    const orderId = uuidv4();
+    
+    // Create new order object
+    // Update the user ID reference in the newOrder object
+    const newOrder = {
+      id: orderId,
+      userId: user?.email || 'guest', // Use email instead of id
+      date: new Date().toISOString(),
+      items: cart,
+      total: total,
+      status: 'pending',
+      paymentMethod: selectedPayment,
+      billingInfo: billingInfo,
+      shippingAddress: billingInfo.address // Using billing address as shipping address
+    };
+
+    // Add order to localStorage
+    const existingOrders = JSON.parse(localStorage.getItem('userOrders') || '[]');
+    localStorage.setItem('userOrders', JSON.stringify([...existingOrders, newOrder]));
+    
+    // Clear the cart
+    clearCart();
+    
     // Show success toast
     toast.success('Order placed successfully!', {
       style: {
@@ -53,11 +83,11 @@ export default function Checkout() {
         primary: '#fff',
         secondary: '#468847',
       },
-      duration: 5000, // Show for 5 seconds
+      duration: 5000,
     });
   
-    // Navigate to success page
-    navigate('/order-success');
+    // Navigate to success page with order ID
+    navigate(`/order-success?orderId=${orderId}`);
   };
 
   return (

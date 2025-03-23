@@ -7,6 +7,7 @@ import { StarIcon, MapPinIcon, CalendarIcon, QrCodeIcon, XMarkIcon, PaperAirplan
 import useRandomProducts from '../../hooks/useRandomProducts';
 import type { Product,CartItem } from '../../types/Product';
 import { BeakerIcon, CloudIcon, TruckIcon, BuildingStorefrontIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '../../context/AuthContext';
 
 export default function ProductDetails() {
 
@@ -23,6 +24,9 @@ export default function ProductDetails() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState<Array<{text: string; sender: 'user' | 'seller'}>>([]);
   const [message, setMessage] = useState('');
+  const { isAuthenticated } = useAuth();
+
+  
 
   // Move handleSendMessage inside the component
   const handleSendMessage = (e: React.FormEvent) => {
@@ -50,6 +54,20 @@ export default function ProductDetails() {
   };
   
   const handleBuyNow = () => {
+    
+    if (!isAuthenticated) {
+      toast.error('Please login to Checkout', {
+        style: {
+          background: '#468847',
+          color: '#fff',
+        },
+        iconTheme: {
+          primary: '#fff',
+          secondary: '#468847',
+        },
+      });
+      navigate('/auth/login');
+    } else {
     if (!product) return;
     addToCart(product, quantity);
     toast.success(`${quantity} ${product.name} added to cart`, {
@@ -64,6 +82,7 @@ export default function ProductDetails() {
     });
     navigate('/checkout');
   };
+}
 
   useEffect(() => {
     if (!loading && products.length > 0 && id) {

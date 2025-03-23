@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import useRandomProducts from '../../hooks/useRandomProducts';
-import type { Product } from '../../types/Product';
+import type { Product } from '../../types/';
 
 export default function CategoryPage() {
   const { category } = useParams();

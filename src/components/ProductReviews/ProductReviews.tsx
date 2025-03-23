@@ -1,5 +1,5 @@
 import { StarIcon } from '@heroicons/react/24/outline';
-import { Product } from '../../types/Product';
+import { Product } from '../../types/';
 
 interface ProductReviewsProps {
   product: Product;

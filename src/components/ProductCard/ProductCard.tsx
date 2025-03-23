@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { StarIcon, MapPinIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
-import type { Product } from '../../types/Product';
+import type { Product } from '../../types/';
 import { useCart } from '../../context/CartContext';
 import toast from 'react-hot-toast';
 

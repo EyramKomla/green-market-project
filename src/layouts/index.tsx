@@ -24,10 +24,10 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Layout() {
     const [searchQuery, setSearchQuery] = useState('');
+    const { isAuthenticated, user, logout } = useAuth(); // Move hook to component level
 
     const handleSearch = (term: string) => {
         setSearchQuery(term);
-        // You can add additional search logic here if needed
     };
     const handleMailClick = () => {
         window.location.href = "mailto:someone@example.com";
@@ -258,23 +258,23 @@ export default function Layout() {
                     <div className="flex items-center gap-3">
                         <CartIcon />
                         <HeartIcon color="white" width={24} height={24} className="hover:text-dark"/>
-                        {useAuth().isAuthenticated ? (
+                        {isAuthenticated ? (
                             <Popover className="relative">
                                 <Popover.Button className="flex items-center focus:outline-none">
                                     <UserIcon color="white" width={24} height={24} className="hover:text-dark"/>
                                 </Popover.Button>
                                 <Popover.Panel className="absolute right-0 z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg">
                                     <div className="px-4 py-2 border-b">
-                                        <p className="text-sm font-medium text-gray-900">{useAuth().user?.name}</p>
+                                        <p className="text-sm font-medium text-gray-900">{user?.name}</p>
                                     </div>
                                     <Link
                                         to="/orders"
                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     >
-                                        My Activities
+                                        Dashboard
                                     </Link>
                                     <button
-                                        onClick={() => useAuth().logout()}
+                                        onClick={logout}
                                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     >
                                         Logout
@@ -284,13 +284,13 @@ export default function Layout() {
                         ) : (
                             <div className="flex items-center gap-2">
                                 <Link 
-                                    to="/login" 
+                                    to="/auth/login" 
                                     className="text-white hover:text-dark text-sm px-3 py-1 border border-white rounded-md"
                                 >
                                     Login
                                 </Link>
                                 <Link 
-                                    to="/signup" 
+                                    to="/auth/Signup" 
                                     className="text-white hover:text-dark text-sm px-3 py-1 bg-white/10 border border-white rounded-md"
                                 >
                                     Sign Up

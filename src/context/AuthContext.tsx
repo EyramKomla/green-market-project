@@ -3,6 +3,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 interface User {
   email: string;
   name: string;
+  id?: string;  // Add id property
 }
 
 interface AuthContextType {
@@ -17,7 +18,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   // Initialize with authenticated state and mock user
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>({
     email: 'demo@example.com',
     name: 'Demo User'

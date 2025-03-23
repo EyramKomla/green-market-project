@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import useRandomProducts from '../hooks/useRandomProducts';
 import ProductCard from './ProductCard/ProductCard';
 import SearchBar from './SearchBar/SearchBar';
-import type { Product } from '../types/Product';
+import type { Product } from '../types/';
 
 export default function ProductGrid() {
   const { products, loading } = useRandomProducts();

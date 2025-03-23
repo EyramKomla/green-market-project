@@ -20,7 +20,7 @@ export default function CartIcon() {
           secondary: '#468847',
         },
       });
-      navigate('/login');
+      navigate('/auth/login');
       return;
     }
     navigate('/cart');

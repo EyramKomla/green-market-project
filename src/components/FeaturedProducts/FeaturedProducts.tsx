@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ArrowPathIcon as RefreshIcon } from '@heroicons/react/24/outline';
 import ProductCard from '../ProductCard/ProductCard';
 import useRandomProducts from '../../hooks/useRandomProducts';
-import type { Product } from '../../types/Product';
+import type { Product } from '../../types/';
 
 export default function FeaturedProducts() {
   const { products, loading, error, refreshProducts } = useRandomProducts();
@@ -44,9 +44,12 @@ export default function FeaturedProducts() {
                   ...product,
                   images: product.image ? [product.image] : [],
                   seller: {
-                    name: product.seller?.name || 'Unknown Seller',
-                    rating: product.rating || 0,
-                    profilePicture: '/default-profile.jpg'
+                      name: product.seller?.name || 'Unknown Seller',
+                      rating: product.rating || 0,
+                      profilePicture: '/default-profile.jpg',
+                      id: '',
+                      location: '',
+                      contactNumber: ''
                   },
                   traceability: {
                     farmName: product.seller?.name || 'Unknown Farm',
