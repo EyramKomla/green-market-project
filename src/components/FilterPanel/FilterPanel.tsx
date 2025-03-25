@@ -10,6 +10,7 @@ interface FilterPanelProps {
 }
 
 const popularCategories = [
+  'All Categories',
   'Vegetables', 'Fruits', 'Organic', 'Fresh Produce',
   'Local Farm', 'Seasonal', 'Grains', 'Dairy'
 ];
@@ -131,16 +132,23 @@ export default function FilterPanel({
             <button
               key={category}
               onClick={() => {
-                const newCategories = selectedCategories.includes(category)
-                  ? selectedCategories.filter(c => c !== category)
-                  : [...selectedCategories, category];
-                setSelectedCategories(newCategories);
-                onCategorySelect(category);
+                if (category === 'All Categories') {
+                  setSelectedCategories([]);
+                  onCategorySelect(''); // Changed from 'all' to empty string
+                } else {
+                  const newCategories = selectedCategories.includes(category)
+                    ? selectedCategories.filter(c => c !== category)
+                    : [...selectedCategories, category];
+                  setSelectedCategories(newCategories);
+                  onCategorySelect(newCategories.length === 0 ? '' : newCategories[newCategories.length - 1]);
+                }
               }}
               className={`px-3 py-1 rounded-full text-sm ${
-                selectedCategories.includes(category)
+                category === 'All Categories' && selectedCategories.length === 0
                   ? 'bg-[#468847] text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : selectedCategories.includes(category)
+                    ? 'bg-[#468847] text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
               {category}

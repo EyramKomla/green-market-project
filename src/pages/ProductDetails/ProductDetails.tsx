@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useCart } from '../../context/CartContext';
 import { StarIcon, MapPinIcon, CalendarIcon, QrCodeIcon, XMarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import useRandomProducts from '../../hooks/useRandomProducts';
-import type { Product,CartItem } from '../../types/Product';
+import type { Product,CartItem } from '../../types';
 import { BeakerIcon, CloudIcon, TruckIcon, BuildingStorefrontIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../context/AuthContext';
 
@@ -508,16 +508,28 @@ export default function ProductDetails() {
                       <div className="flex-shrink-0">
                         <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
                           <span className="text-gray-600 font-medium">
-                            {review.user.charAt(0).toUpperCase()}
+                            {review.user.name.charAt(0).toUpperCase()}
                           </span>
                         </div>
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <h4 className="font-medium">{review.user}</h4>
-                          <span className="text-sm text-gray-500">
-                            {/* You might want to add a date field to your reviews */}
-                          </span>
+                          <div className="flex items-center space-x-2">
+                            <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+                              {review.user.image ? (
+                                <img
+                                  src={review.user.image}
+                                  alt={review.user.name}
+                                  className="h-8 w-8 rounded-full object-cover"
+                                />
+                              ) : (
+                                <span className="text-sm font-medium text-gray-600">
+                                  {review.user.name.charAt(0).toUpperCase()}
+                                </span>
+                              )}
+                            </div>
+                            <h4 className="font-medium">{review.user.name}</h4>
+                          </div>
                         </div>
                         <div className="flex text-yellow-400 mt-1">
                           {[...Array(5)].map((_, i) => (

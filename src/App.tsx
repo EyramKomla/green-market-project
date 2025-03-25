@@ -16,6 +16,7 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Auth/signin';
 import SignUp from './pages/Auth/signup';
 import Services from './pages/Services/Services'; // Add this import
+import ExpertProfile from './pages/Expert/ExpertProfile';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/orders" element={<UserOrders />}/>
           <Route path="/orders/:orderId" element={<OrderDetails />}/>
           <Route path="/services" element={<Services />}/> {/* Add this route */}
+          <Route path="/expert/:expertId" element={<ExpertProfile />} />
         </Route>
         
         <Route path="/auth" element={<AuthLayout />}>

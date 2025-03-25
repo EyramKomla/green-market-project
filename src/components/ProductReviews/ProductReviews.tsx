@@ -43,7 +43,7 @@ export default function ProductReviews({ product }: ProductReviewsProps) {
                 ))}
               </div>
               <span className="text-sm font-medium text-gray-900">
-                {review.user}
+                {review.user.name}
               </span>
             </div>
             <p className="mt-2 text-gray-600">{review.comment}</p>

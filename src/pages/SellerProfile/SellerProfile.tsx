@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { products } from '../../data/products';
 
@@ -6,9 +6,17 @@ export default function SellerProfile() {
   const { sellerId } = useParams();
   const [isFollowing, setIsFollowing] = useState(false);
   
-  // For demo, find seller from first product
-  const seller = products[0].seller;
-  const sellerProducts = products.filter(p => p.seller.id === seller.id);
+  // Find the correct seller based on sellerId
+  const seller = products.find(p => p.seller.id === sellerId)?.seller;
+  const sellerProducts = products.filter(p => p.seller.id === sellerId);
+
+  if (!seller) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-600">Seller not found</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -76,14 +84,22 @@ export default function SellerProfile() {
               <section>
                 <h2 className="font-semibold text-lg mb-2">Interests</h2>
                 <div className="space-y-1 text-gray-600">
-                  {/* Add interests here */}
+                  <p>Sustainable Farming</p>
+                  <p>Organic Agriculture</p>
+                  <p>Agricultural Technology</p>
+                  <p>Food Security</p>
+                  <p>Rural Development</p>
                 </div>
               </section>
 
               <section>
                 <h2 className="font-semibold text-lg mb-2">Specialties</h2>
                 <div className="space-y-1 text-gray-600">
-                  {/* Add specialties here */}
+                  <p>Crop Management</p>
+                  <p>Soil Conservation</p>
+                  <p>Organic Certification</p>
+                  <p>Agricultural Marketing</p>
+                  <p>Farm Operations</p>
                 </div>
               </section>
             </div>
@@ -99,7 +115,27 @@ export default function SellerProfile() {
                     <label className="text-gray-600">Name:</label>
                     <p>{seller.name}</p>
                   </div>
-                  {/* Add more profile fields as needed */}
+                  <div>
+                    <label className="text-gray-600">Location:</label>
+                    <p>{seller.location}</p>
+                  </div>
+                  <div>
+                    <label className="text-gray-600">Experience:</label>
+                    <p>15+ years in agriculture</p>
+                  </div>
+                  <div>
+                    <label className="text-gray-600">Contact:</label>
+                    <p>{seller.contactNumber}</p>
+                  </div>
+                  <div className="col-span-2">
+                    <label className="text-gray-600">Bio:</label>
+                    <p className="mt-1">
+                      Dedicated agricultural professional with a passion for sustainable farming practices. 
+                      Specializing in organic produce and modern farming techniques. 
+                      Committed to providing high-quality agricultural products while maintaining 
+                      environmental responsibility and supporting local farming communities.
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
