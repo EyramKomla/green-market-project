@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CheckCircleIcon, TruckIcon, GiftIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/24/outline';
 import { Order,OrderItem } from '../../types';

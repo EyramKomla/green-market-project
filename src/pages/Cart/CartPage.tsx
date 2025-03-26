@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useCart } from '../../context/CartContext';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 type DeliveryOptionType = 'standard' | 'express' | 'pickup';
 

@@ -1,20 +1,16 @@
 import { useState } from 'react';
-import {Input, Popover,
+import { Popover,
     PopoverButton,
     PopoverGroup,
-    PopoverPanel,
-     Textarea } from "@headlessui/react";
+    PopoverPanel
+     } from "@headlessui/react";
 import greensLogo from "../assets/Logo.png";
-import { HeartIcon, MagnifyingGlassCircleIcon, MagnifyingGlassIcon, PhoneIcon, UserCircleIcon, UserIcon } from "@heroicons/react/24/outline";
+import { HeartIcon,UserIcon } from "@heroicons/react/24/outline";
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { PiHeadphonesLight, PiArrowsCounterClockwiseLight } from "react-icons/pi";
 import SearchBar from '../components/SearchBar/SearchBar';
-import CategoryNav from '../components/CategoryNav/CategoryNav';
 import CartIcon from '../components/CartIcon/CartIcon';
-import { categories } from '../config/categories';
-import { SVGProps } from "react";
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import { useAuth } from '../context/AuthContext';
 
@@ -32,69 +28,7 @@ export default function Layout() {
     const handleMailClick = () => {
         window.location.href = "mailto:someone@example.com";
     };
-    const categories = [
-        {
-            name: 'Fresh Vegetables',
-            description: 'Local and organic vegetables, leafy greens, and roots',
-            href: '/category/vegetables',
-            icon: (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 12.75c1.148 0 2.278.08 3.383.237 1.037.146 1.866.966 1.866 2.013 0 3.728-2.35 6.75-5.25 6.75S6.75 18.728 6.75 15c0-1.046.83-1.867 1.866-2.013A24.204 24.204 0 0112 12.75zm0 0c2.883 0 5.647.508 8.207 1.44a23.91 23.91 0 01-1.152 6.06M12 12.75c-2.883 0-5.647.508-8.208 1.44.125 2.104.52 4.136 1.153 6.06M12 12.75a2.25 2.25 0 002.248-2.354M12 12.75a2.25 2.25 0 01-2.248-2.354M12 8.25c.995 0 1.971-.08 2.922-.236.403-.066.74-.358.795-.762a3.778 3.778 0 00-.399-2.25M12 8.25c-.995 0-1.97-.08-2.922-.236-.402-.066-.74-.358-.795-.762a3.734 3.734 0 01.4-2.253M12 8.25a2.25 2.25 0 00-2.248 2.146M12 8.25a2.25 2.25 0 012.248 2.146M8.683 5a6.032 6.032 0 01-1.155-1.002c.07-.63.27-1.222.574-1.747m.581 2.749A3.75 3.75 0 0115.318 5m0 0c.427-.283.815-.62 1.155-.999a4.471 4.471 0 00-.575-1.752M4.921 6a24.048 24.048 0 00-.392 3.314c1.668.546 3.416.914 5.223 1.082M19.08 6c.205 1.08.337 2.187.392 3.314a23.882 23.882 0 01-5.223 1.082" />
-                </svg>
-            )
-        },
-        {
-            name: 'Fresh Fruits',
-            description: 'Seasonal fruits, exotic fruits, and citrus',
-            href: '/category/fruits',
-            icon: (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-                </svg>
-            )
-        },
-        {
-            name: 'Grains & Cereals',
-            description: 'Rice, wheat, maize, and other grains',
-            href: '/category/grains',
-            icon: (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                </svg>
-            )
-        },
-        {
-            name: 'Livestock Products',
-            description: 'Meat, dairy products, and eggs',
-            href: '/category/livestock',
-            icon: (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
-                </svg>
-            )
-        },
-        {
-            name: 'Farm Supplies',
-            description: 'Seeds, fertilizers, and farming tools',
-            href: '/category/supplies',
-            icon: (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 12.75c1.148 0 2.278.08 3.383.237 1.037.146 1.866.966 1.866 2.013 0 3.728-2.35 6.75-5.25 6.75S6.75 18.728 6.75 15c0-1.046.83-1.867 1.866-2.013A24.204 24.204 0 0112 12.75zm0 0c2.883 0 5.647.508 8.207 1.44a23.91 23.91 0 01-1.152 6.06M12 12.75c-2.883 0-5.647.508-8.208 1.44.125 2.104.52 4.136 1.153 6.06M12 12.75a2.25 2.25 0 002.248-2.354M12 12.75a2.25 2.25 0 01-2.248-2.354M12 8.25c.995 0 1.971-.08 2.922-.236.403-.066.74-.358.795-.762a3.778 3.778 0 00-.399-2.25M12 8.25c-.995 0-1.97-.08-2.922-.236-.402-.066-.74-.358-.795-.762a3.734 3.734 0 01.4-2.253M12 8.25a2.25 2.25 0 00-2.248 2.146M12 8.25a2.25 2.25 0 012.248 2.146M8.683 5a6.032 6.032 0 01-1.155-1.002c.07-.63.27-1.222.574-1.747m.581 2.749A3.75 3.75 0 0115.318 5m0 0c.427-.283.815-.62 1.155-.999a4.471 4.471 0 00-.575-1.752M4.921 6a24.048 24.048 0 00-.392 3.314c1.668.546 3.416.914 5.223 1.082M19.08 6c.205 1.08.337 2.187.392 3.314a23.882 23.882 0 01-5.223 1.082" />
-                </svg>
-            )
-        },
-        {
-            name: 'Processed Foods',
-            description: 'Preserved foods and value-added products',
-            href: '/category/processed',
-            icon: (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-                </svg>
-            )
-        }
-    ];
-
+   
     const navigation = {
         route:[
             { name: 'Shop Product', link: '/shopProduct' },
@@ -260,10 +194,10 @@ export default function Layout() {
                         <HeartIcon color="white" width={24} height={24} className="hover:text-dark"/>
                         {isAuthenticated ? (
                             <Popover className="relative">
-                                <Popover.Button className="flex items-center focus:outline-none">
+                                <PopoverButton className="flex items-center focus:outline-none">
                                     <UserIcon color="white" width={24} height={24} className="hover:text-dark"/>
-                                </Popover.Button>
-                                <Popover.Panel className="absolute right-0 z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg">
+                                </PopoverButton>
+                                <PopoverPanel className="absolute right-0 z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg">
                                     <div className="px-4 py-2 border-b">
                                         <p className="text-sm font-medium text-gray-900">{user?.name}</p>
                                     </div>
@@ -279,7 +213,7 @@ export default function Layout() {
                                     >
                                         Logout
                                     </button>
-                                </Popover.Panel>
+                                </PopoverPanel>
                             </Popover>
                         ) : (
                             <div className="flex items-center gap-2">

@@ -2,7 +2,7 @@
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, { useRef } from 'react';
+import  { useRef } from 'react';
 
 export default function Hero() {
   const sliderRef = useRef<Slider | null>(null);

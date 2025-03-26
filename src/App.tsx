@@ -8,7 +8,6 @@ import ProductDetails from './pages/ProductDetails/ProductDetails';
 import CartPage from './pages/Cart/CartPage';
 import { Toaster } from 'react-hot-toast';
 import AuthLayout from './layouts/AuthLayout';
-import CategoryPage from './pages/CategoryPage/CategoryPage';
 import SellerProfile from './pages/SellerProfile/SellerProfile';
 import UserOrders from './pages/UserOrders/UserOrders';
 import OrderDetails from './pages/UserOrders/OrderDetails';
@@ -29,7 +28,6 @@ function App() {
           <Route path="cart" element={<CartPage />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success" element={<OrderSuccess />} />
-          <Route path="category/:category" element={<CategoryPage />} />
           <Route path="seller/:sellerId" element={<SellerProfile />} />
           <Route path="/orders" element={<UserOrders />}/>
           <Route path="/orders/:orderId" element={<OrderDetails />}/>
